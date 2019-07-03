@@ -1,0 +1,36 @@
+﻿@using ESupportDemo.Web.Helper
+<div onclick="aware.hidePopup('zoomImage');" class="PopupFade" id="zoomImageFade"></div>
+<div id="zoomImage" class="Popup" tabindex="1">
+    @Html.ImageFor("", "/Product/0.jpg")
+    <div class="buttons">
+        <i class="fa fa-angle-left btn-prev" title="Önceki"></i>
+        <i class="fa fa-angle-right btn-next" title="Sonraki"></i>
+    </div>
+    <span><i class="fa fa-info-circle"></i> Klavye sağ/sol tuşları ile ileri geri gezinebilirsiniz.</span>
+</div>
+
+<div class="text-center message-dialog">
+    <h2 class="title"></h2>
+    @Html.ImageFor("Icons", "processing.gif", "...", "mt10 mb20 process")
+    <p class="mt10 message-content"></p>
+    <p>@Html.ButtonFor("Tamam", "mt20 btn-success btn-close-dialog", string.Empty)</p>
+</div>
+
+<div class="modal fade" id="confirmModal">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h2 class="mt20 mb10 title"><i class="fa fa-exclamation-triangle"></i> <span>Lütfen Onaylayın</span></h2>
+            <p class="lead mb10 message"></p>
+
+            <div class="button-row">
+                @Html.ButtonFor("Hayır", "mr10 btn-black btn-no", "remove", "data-dismiss='modal'")
+                @Html.ButtonFor("Evet", "btn-red btn-yes", "check")
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="scroll-to-top" title="Başa dön"></div>
+<div class="aware-toastr"></div>

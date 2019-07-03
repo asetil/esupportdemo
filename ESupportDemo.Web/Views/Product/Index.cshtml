@@ -1,0 +1,106 @@
+﻿@using ESupportDemo.Web.Helper
+@model List<ESupportDemo.Web.Models.Product>
+@{
+    ViewBag.Title = "Ürünler";
+    TempData["ActivePage"] = 4;
+    var hasResult = true;
+}
+
+<section class="container-fluid products-list">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header card-header-icon"><i class="fa fa-th"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">
+                        @ViewBag.Title
+                        <a href="@Url.Action("Detail", new {name = "yeni-urun", id = 0})" class="btn btn-info btn-round btn-fab btn-fab-mini ml20" title="Yeni Market Ekle"><i class="fa fa-plus"></i></a>
+                    </h2>
+
+                    @if (hasResult)
+                    {
+                        <div class="table-responsive">
+                            <div class="fl db mb10">
+                                Toplam 500 üründen 25 tanesi listeleniyor
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Ürün Adı</th>
+                                        <th>Kategori</th>
+                                        <th>Stok</th>
+                                        <th>Birim Fiyat</th>
+                                        <th>Liste Fiyatı</th>
+                                        <th width="6%">Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td class="td-name">  @item.Name</td>
+                                        <td>@item.CategoryID</td>
+                                        <td>@item.Stock</td>
+                                        <td>@item.UnitPrice</td>
+                                        <td>@item.ListPrice</td>
+                                        <td class="text-center">
+                                            @Html.StatusFor(item.Status)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Detail", "Prouct", new {name = item.Name.ToLowerInvariant(), id = item.ID})" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-eye"></i> Görüntüle</a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="float: right; margin-top: 10px;" class="product-pager"></div>
+                    }
+                    else
+                    {
+                        <hr />
+                        <div class="no-result-found">
+                            <i class="fa fa-warning"></i>
+                            <h4>Listelenecek Kayıt Bulunamadı!</h4>
+                            <p class="description">Filtreleme kriterlerinizi gözden geçirin!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @*@if (searchResult != null)
+            {
+                <div class="col-md-3">
+                    <div class="card search-panel">
+                        <div class="card-header card-header-icon"><i class="fa fa-th"></i></div>
+                        <div class="card-content">
+                            <h2 class="card-title">Filtrele</h2>
+
+                            @using (Html.BeginForm("Index", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                var searchParams = searchResult.SearchParams as ProductSearchParams;
+                                var dataSource = Model.Categories.Select(i => new Item(i.ID, i.Name)).ToList();
+                                var categoryID = searchParams.CategoryIDs.FirstOrDefault();
+                                var filterFields = new FieldHelper();
+
+                                filterFields.Text("ids", "Ürün ID", string.Join(",", searchParams.IDsString));
+                                filterFields.Text("q", "Ürün Adı", searchParams.Keyword);
+                                filterFields.Text("b", "Barkod", searchParams.Barcode);
+                                filterFields.Select("Kategori", "cid", dataSource, categoryID, "category-selector");
+                                filterFields.Select("Durum", "st", Model.StatusList, (int)searchParams.Status, "status-selector");
+
+                                @Html.Partial("_FieldHelper", filterFields)
+                                @Html.ButtonFor("Ara", "btn-success btn-search", "search")
+                            }
+                        </div>
+                    </div>
+                </div>
+            }*@
+    </div>
+</section>

@@ -1,0 +1,107 @@
+﻿@using ESupportDemo.Web.Helper
+@{
+    var activePage = TempData["ActivePage"] != null ? TempData["ActivePage"].ToString().AsInt() : 0;
+}
+
+<div class="sidebar">
+    <div class="logo">
+        <div class="logo-normal">
+            <a class="simple-text" href="/dashboard">
+                ESupport.com
+            </a>
+        </div>
+
+        <div class="logo-img">
+            <img src="/resource/img/App/logo2.png">
+        </div>
+    </div>
+
+    <div class="sidebar-wrapper">
+        <div class="user">
+            <div class="photo">
+                <img src="/resource/img/App/user.jpg">
+            </div>
+            <div class="info">
+                <a data-toggle="collapse" href="#userMenu">
+                    <span>
+                        Osman Sokuoğlu
+                        <b class="caret"></b>
+                    </span>
+                    <p>Yazılım Uzmanı</p>
+                </a>
+                <div class="collapse" id="userMenu">
+                    <ul class="nav">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="sidebar-normal">Bilgilerim</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="btn-logout">
+                                <i class="fa fa-remove"></i>
+                                <span class="sidebar-normal">Oturumu Kapat</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-container">
+            <ul class="nav">
+                <li class="@(activePage == 1 ? "active" : "")">
+                    <a href="/">
+                        <i class="fa fa-home"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="@(activePage == 2 ? "active" : "")">
+                    <a href="@Url.RouteUrl(RouteNames.UsersRoute)">
+                        <i class="fa fa-users"></i> <span>Kullanıcılar</span>
+                    </a>
+                </li>
+
+                <li class="@(activePage == 3 ? "active" : "")">
+                    <a href="@Url.RouteUrl(RouteNames.CategoriesRoute)">
+                        <i class="fa fa-th"></i> <span>Kategoriler</span>
+                    </a>
+                </li>
+
+                <li class="@(activePage == 4 ? "active" : "")">
+                    <a href="@Url.RouteUrl(RouteNames.ProductsRoute)">
+                        <i class="fa fa-th"></i> <span>Ürünlerim</span>
+                    </a>
+                </li>
+
+                <li class="@(activePage == 6 ? "active" : "") treeview">
+                    <a data-toggle="collapse" href="#Orders">
+                        <i class="fa fa-shopping-cart"></i> <span>Siparişlerim</span> <i class="fa fa-caret-down open"></i>
+                    </a>
+                    <div class="collapse @(activePage == 6 ? "in" : "")" id="Orders">
+                        <ul class="nav">
+                            <li class="@(activePage == 160 ? "active" : "")">
+                                <a href="@Url.Action("Index", "Order")"><i class="fa fa-circle-o"></i> Tüm Siparişler</a>
+                            </li>
+                            <li class="@(activePage == 160 ? "active" : "")">
+                                <a href="@Url.Action("Index", "Order", new {period = "daily"})"><i class="fa fa-circle-o"></i> Bugünün Siparişleri</a>
+                            </li>
+                            <li class="@(activePage == 160 ? "active" : "")">
+                                <a href="@Url.Action("Index", "Order", new {period = "weekly"})"><i class="fa fa-circle-o"></i> Bu Haftanın Siparişleri</a>
+                            </li>
+                            <li class="@(activePage == 160 ? "active" : "")">
+                                <a href="@Url.Action("Index", "Order", new {period = "monthly"})"><i class="fa fa-circle-o"></i> Bu Ayın Siparişleri</a>
+                            </li>
+                            <li class="@(activePage == 160 ? "active" : "")">
+                                <a href="@Url.Action("Index", "Order", new {period = "yearly"})"><i class="fa fa-circle-o"></i> Bu Yılın Siparişleri</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="sidebar-background"></div>
+</div>
